@@ -54,6 +54,14 @@ const ScrollHero = () => {
         {/* Vignette */}
         <div className="pointer-events-none absolute inset-0 z-[42] bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/30" />
 
+        {/* z-5 — Gradient background */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[5]"
+          style={{
+            background: "radial-gradient(ellipse at 75% 90%, rgba(200,70,10,0.55) 0%, rgba(150,40,5,0.25) 40%, transparent 65%), radial-gradient(ellipse at 25% 15%, rgba(15,30,140,0.5) 0%, rgba(10,20,100,0.2) 45%, transparent 65%)",
+          }}
+        />
+
         {/* z-10 — JEEVAN — quick fade then removed from DOM */}
         {!nameGone && (
           <motion.div
