@@ -59,6 +59,7 @@ export default function HUDNav() {
             alignItems: "flex-end",
             gap: 6,
           }}
+          className="hidden md:flex"
         >
           {SECTIONS.map(s => {
             const isActive = active === s.id;

@@ -262,3 +262,44 @@
 .smoke-puff:nth-child(2) { left: 38%; animation: smoke-rise-2 3.5s ease-out 0.8s infinite; width: 160px; height: 160px; }
 .smoke-puff:nth-child(3) { left: 48%; animation: smoke-rise 4s ease-out 1.6s infinite; }
 .smoke-puff:nth-child(4) { left: 22%; animation: smoke-rise-2 3.2s ease-out 0.4s infinite; width: 100px; height: 100px; }
+
+/* ─── MOBILE RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Building ticker — hide terminal hint on mobile */
+  .ticker-terminal-hint { display: none !important; }
+
+  /* StatusWindow — convert fixed panel to scrollable card */
+  .status-frame {
+    height: auto !important;
+    min-height: unset !important;
+    overflow: visible !important;
+  }
+  .status-left-nav {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 24px 20px 0 !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: flex-start !important;
+  }
+  .status-right-panel {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 20px !important;
+    overflow-y: visible !important;
+    justify-content: flex-start !important;
+  }
+  .status-character-img { display: none !important; }
+  .status-edge-fade { display: none !important; }
+
+  /* Hero panels — full width on mobile */
+  .hero-right-panel {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    justify-content: flex-start !important;
+  }
+}

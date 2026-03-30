@@ -103,7 +103,7 @@ export default function StatusWindow() {
   };
 
   return (
-    <section style={{ background:"#0a0a14", padding:"60px 40px" }}>
+    <section style={{ background:"#0a0a14", padding:"clamp(24px,5vw,60px) clamp(16px,4vw,40px)" }}>
       <div style={{ maxWidth:1100, margin:"0 auto 24px" }}>
         <p style={{ ...RJ, fontSize:11, letterSpacing:"0.35em", color:"#6b7cff", textTransform:"uppercase" as const }}>\u25c8 DEVELOPER PROFILE</p>
       </div>
@@ -114,23 +114,18 @@ export default function StatusWindow() {
         variants={frameVariants}
         initial="closed"
         animate={isInView ? "open" : "closed"}
-        whileHover="hovered"
         style={{
           maxWidth: 1100,
           margin: "0 auto",
           position: "relative",
-          height: "75vh",
-          minHeight: 560,
           borderRadius: 12,
           overflow: "hidden",
           background: "#080510",
           border: frameHovered ? "1px solid rgba(107,124,255,0.55)" : "1px solid rgba(107,124,255,0.15)",
           boxShadow: frameHovered
-            ? "0 32px 80px rgba(0,0,0,0.6), 0 16px 40px rgba(0,0,0,0.4), 0 0 40px rgba(107,124,255,0.18), 0 0 12px rgba(107,124,255,0.10)"
+            ? "0 32px 80px rgba(0,0,0,0.6), 0 0 40px rgba(107,124,255,0.18)"
             : "0 4px 20px rgba(0,0,0,0.3)",
-          transform: frameHovered ? "translateY(-10px)" : "translateY(0px)",
-          transition: "border 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.23,1,0.32,1)",
-          transformOrigin: "center center",
+          transition: "border 0.4s ease, box-shadow 0.4s ease",
         }}
         onMouseEnter={() => setFrameHovered(true)}
         onMouseLeave={() => setFrameHovered(false)}
@@ -141,35 +136,16 @@ export default function StatusWindow() {
             key={i}
             animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.5 }}
             transition={{ duration: 0.3, delay: 0.65 }}
-            className="group-hover:w-8 group-hover:h-8 group-hover:border-[#ff6b1a] transition-all duration-300"
-            style={{
-              position: "absolute", width: 20, height: 20, ...s, zIndex: 20, opacity: 0.7,
-              transition: "width 0.3s ease, height 0.3s ease, border-color 0.3s ease",
-            }}
+            style={{ position: "absolute", width: 20, height: 20, ...s, zIndex: 20, opacity: 0.7 }}
           />
         ))}
 
         {/* Scan lines */}
-        <div
-          className="group-hover:opacity-[0.025]"
-          style={{
-            position: "absolute", inset: 0, zIndex: 5, pointerEvents: "none",
-            background: "repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.012) 2px,rgba(255,255,255,0.012) 4px)",
-            opacity: 0.012, transition: "opacity 0.3s ease",
-          }}
-        />
-
-        {/* Hover scan overlay */}
-        <motion.div
-          animate={{ opacity: frameHovered ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-          style={{
-            position: "absolute", inset: 0, zIndex: 6, pointerEvents: "none",
-            background: "linear-gradient(180deg, transparent 0%, rgba(107,124,255,0.02) 50%, transparent 100%)",
-          }}
-        />
-
-
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 5, pointerEvents: "none",
+          background: "repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.012) 2px,rgba(255,255,255,0.012) 4px)",
+          opacity: 0.012,
+        }} />
 
         {/* Open flash */}
         {showFlash && (
@@ -177,19 +153,16 @@ export default function StatusWindow() {
             initial={{ opacity: 1 }}
             animate={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            style={{
-              position: "absolute", inset: 0,
-              background: "rgba(107,124,255,0.06)",
-              zIndex: 50, pointerEvents: "none",
-            }}
+            style={{ position: "absolute", inset: 0, background: "rgba(107,124,255,0.06)", zIndex: 50, pointerEvents: "none" }}
           />
         )}
 
-        {/* Inner content — fades in after frame opens */}
+        {/* DESKTOP layout — hidden on mobile */}
         <motion.div
           animate={{ opacity: isInView ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.7 }}
-          style={{ position: "absolute", inset: 0 }}
+          className="hidden md:block"
+          style={{ position: "relative", height: "75vh", minHeight: 560 }}
         >
           {/* Character image */}
           <img
@@ -201,46 +174,22 @@ export default function StatusWindow() {
               objectFit: "contain", objectPosition: "bottom center", zIndex: 2, display: "block",
             }}
           />
-
-          {/* Atmospheric glow — reacts to hover */}
-          <motion.div
-            animate={{ opacity: frameHovered ? 1 : 0.6, scale: frameHovered ? 1.1 : 1 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-              background: "radial-gradient(ellipse at 50% 65%, rgba(107,124,255,0.10) 0%, rgba(168,85,247,0.06) 40%, transparent 68%)",
-            }}
-          />
-
-          {/* Edge fade overlays */}
+          {/* Atmospheric glow */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", background: "radial-gradient(ellipse at 50% 65%, rgba(107,124,255,0.10) 0%, rgba(168,85,247,0.06) 40%, transparent 68%)" }} />
+          {/* Edge fades */}
           <div style={{ position:"absolute", left:0, top:0, width:220, height:"100%", zIndex:4, pointerEvents:"none", background:"linear-gradient(to right, rgba(8,5,20,0.88) 0%, rgba(8,5,20,0.55) 55%, transparent 100%)" }} />
           <div style={{ position:"absolute", right:0, top:0, width:"52%", height:"100%", zIndex:4, pointerEvents:"none", background:"linear-gradient(to left, rgba(8,5,20,0.97) 0%, rgba(8,5,20,0.93) 55%, rgba(8,5,20,0.55) 85%, transparent 100%)" }} />
-
           {/* Left nav */}
           <div style={{ position:"absolute", left:0, top:0, width:200, height:"100%", zIndex:10, padding:"48px 0 48px 36px", display:"flex", flexDirection:"column", justifyContent:"center" }}>
             <span style={{ ...IN, fontWeight:800, fontSize:"1.7rem", color:"#fff", display:"block", marginBottom:32 }}>ABOUT</span>
             {TABS.map(t => (
-              <button
-                key={t.id}
-                onClick={() => setActiveTab(t.id)}
-                style={{
-                  ...RJ, textTransform:"uppercase" as const, fontSize:12, letterSpacing:"0.18em",
-                  padding:"9px 0 9px 14px",
-                  borderLeft: activeTab === t.id ? "2px solid #ff6b1a" : "2px solid transparent",
-                  color: activeTab === t.id ? "#ffffff" : "rgba(255,255,255,0.38)",
-                  background:"transparent", border:"none",
-                  cursor:"pointer", display:"block", width:"100%", textAlign:"left" as const,
-                  marginBottom:4, transition:"all 0.2s ease", whiteSpace:"nowrap" as const,
-                }}
+              <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ ...RJ, textTransform:"uppercase" as const, fontSize:12, letterSpacing:"0.18em", padding:"9px 0 9px 14px", borderLeft: activeTab === t.id ? "2px solid #ff6b1a" : "2px solid transparent", color: activeTab === t.id ? "#ffffff" : "rgba(255,255,255,0.38)", background:"transparent", border:"none", cursor:"pointer", display:"block", width:"100%", textAlign:"left" as const, marginBottom:4, transition:"all 0.2s ease", whiteSpace:"nowrap" as const }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; if (activeTab !== t.id) { el.style.color = "rgba(255,255,255,0.72)"; el.style.borderLeftColor = "rgba(255,107,26,0.35)"; } }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; if (activeTab !== t.id) { el.style.color = "rgba(255,255,255,0.38)"; el.style.borderLeftColor = "transparent"; } }}
-              >
-                {t.label}
-              </button>
+              >{t.label}</button>
             ))}
           </div>
-
-          {/* Right content panel */}
+          {/* Right content */}
           <div style={{ position:"absolute", right:0, top:0, width:"48%", height:"100%", zIndex:10, padding:"48px 52px", overflowY:"auto", display:"flex", flexDirection:"column", justifyContent:"center", background:"transparent" }}>
             <AnimatePresence mode="wait">
               <motion.div key={activeTab} initial={{ opacity:0, x:20 }} animate={{ opacity:1, x:0 }} exit={{ opacity:0, x:-20 }} transition={{ duration:0.28 }}>
@@ -248,6 +197,38 @@ export default function StatusWindow() {
               </motion.div>
             </AnimatePresence>
           </div>
+        </motion.div>
+
+        {/* MOBILE layout — shown only on mobile */}
+        <motion.div
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+          className="block md:hidden"
+          style={{ padding: "24px 20px 32px" }}
+        >
+          {/* Tab buttons — horizontal scroll */}
+          <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 16, marginBottom: 20, scrollbarWidth: "none" }}>
+            {TABS.map(t => (
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(t.id)}
+                style={{
+                  ...RJ, textTransform: "uppercase" as const, fontSize: 10, letterSpacing: "0.15em",
+                  padding: "7px 14px", borderRadius: 4, whiteSpace: "nowrap" as const,
+                  border: activeTab === t.id ? "1px solid #ff6b1a" : "1px solid rgba(255,255,255,0.1)",
+                  color: activeTab === t.id ? "#fff" : "rgba(255,255,255,0.4)",
+                  background: activeTab === t.id ? "rgba(255,107,26,0.1)" : "transparent",
+                  cursor: "pointer", flexShrink: 0,
+                }}
+              >{t.label}</button>
+            ))}
+          </div>
+          {/* Content */}
+          <AnimatePresence mode="wait">
+            <motion.div key={activeTab} initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-10 }} transition={{ duration:0.25 }}>
+              {renderContent()}
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
       </motion.div>
     </section>

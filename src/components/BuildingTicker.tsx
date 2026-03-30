@@ -165,8 +165,9 @@ export default function BuildingTicker() {
           }}
         />
 
-        {/* Right: terminal hint */}
+        {/* Right: terminal hint — hidden on mobile */}
         <div
+          className="hidden sm:block"
           style={{
             ...RJ,
             paddingRight: 16,
