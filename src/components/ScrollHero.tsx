@@ -7,6 +7,12 @@ const grain = "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http
 
 const ScrollHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showEntrance, setShowEntrance] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowEntrance(false), 1000);
+    return () => clearTimeout(t);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -46,6 +52,38 @@ const ScrollHero = () => {
   return (
     <div ref={containerRef} className="relative" style={{ height: "200vh" }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#080808]">
+
+        {/* Entrance fade-from-black overlay */}
+        {showEntrance && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "#080810",
+              zIndex: 60,
+              pointerEvents: "none",
+            }}
+          />
+        )}
+
+        {/* Scan-line wipe */}
+        <motion.div
+          initial={{ left: "-100%" }}
+          animate={{ left: "100%" }}
+          transition={{ duration: 1.2, delay: 0.3, ease: "easeInOut" }}
+          style={{
+            position: "absolute",
+            top: 0,
+            height: 4,
+            width: "100%",
+            background: "linear-gradient(90deg, transparent, #6b7cff, transparent)",
+            zIndex: 61,
+            pointerEvents: "none",
+          }}
+        />
 
         {/* Film grain */}
         <div className="pointer-events-none absolute inset-0 z-[45] opacity-[0.04]"
