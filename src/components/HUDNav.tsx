@@ -48,18 +48,17 @@ export default function HUDNav() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="hidden md:flex"
           style={{
             position: "fixed",
             right: 28,
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 9990,
-            display: "flex",
             flexDirection: "column",
             alignItems: "flex-end",
             gap: 6,
           }}
-          className="hidden md:flex"
         >
           {SECTIONS.map(s => {
             const isActive = active === s.id;

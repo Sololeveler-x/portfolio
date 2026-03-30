@@ -169,7 +169,7 @@ const ScrollHero = () => {
           {nameGone && !showRight && (
             <motion.div
               key="left"
-              className="absolute inset-0 z-50 flex items-center px-8 sm:px-12 lg:px-16 pointer-events-none"
+              className="absolute inset-0 z-50 flex items-center px-6 sm:px-12 lg:px-16 pointer-events-none"
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.1 }}
@@ -177,7 +177,7 @@ const ScrollHero = () => {
             >
               <div>
                 <h2 className="font-black leading-tight tracking-tight text-white"
-                  style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+                  style={{ fontSize: "clamp(2rem, 6vw, 5rem)" }}>
                   I build things<br />
                   <span style={{ color: "#ff6b1a" }}>that matter.</span>
                 </h2>
@@ -199,9 +199,9 @@ const ScrollHero = () => {
               exit={{ opacity: 0, scale: 1.1 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div style={{ maxWidth: "clamp(340px, 38vw, 520px)" }}>
+              <div style={{ maxWidth: "clamp(280px, 38vw, 520px)", paddingRight: "clamp(8px, 2vw, 8px)" }}>
                 <h2 className="font-black leading-tight tracking-tight"
-                  style={{ fontSize: "clamp(2.2rem, 4.5vw, 4rem)" }}>
+                  style={{ fontSize: "clamp(1.8rem, 4.5vw, 4rem)" }}>
                   <span className="text-white">I build for impact.</span><br />
                   <span style={{ color: "#ff6b1a" }}>Not just code.</span>
                 </h2>
